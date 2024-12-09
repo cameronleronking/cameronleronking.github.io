@@ -32,6 +32,13 @@
     "href": "index.html",
     "title": "blog",
     "section": "",
-    "text": "Does Taking More Threes Lead To More Wins In The NBA?\n\n\n\n\n\n\nlowercaseword\n\n\nlowercaseword\n\n\nlowercaseword\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nCameron King\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nNov 12, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nNov 9, 2024\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Evaluating the Shai Gilgeous Alexander and Paul George Trade\n\n\n\n\n\n\nSGA\n\n\nThunder\n\n\nClippers\n\n\n\n\n\n\n\n\n\nDec 9, 2024\n\n\nCameron King\n\n\n\n\n\n\n\n\n\n\n\n\nDoes Taking More Threes Lead To More Wins In The NBA?\n\n\n\n\n\n\nlowercaseword\n\n\nlowercaseword\n\n\nlowercaseword\n\n\n\n\n\n\n\n\n\nNov 17, 2024\n\n\nCameron King\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/sga-pg-trade/index.html",
+    "href": "posts/sga-pg-trade/index.html",
+    "title": "Evaluating the Shai Gilgeous Alexander and Paul George Trade",
+    "section": "",
+    "text": "x x x\n\n\nCode\nlibrary(tidyverse)\nlibrary(ggrepel)\nlibrary(patchwork)\nlibrary(ggalt)\nlibrary(ggtext)\n\n\n#ggsave(“image.png”)"
   }
 ]
