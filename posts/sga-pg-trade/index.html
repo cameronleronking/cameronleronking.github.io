@@ -9,7 +9,7 @@
 <meta name="author" content="Cameron King">
 <meta name="dcterms.date" content="2024-12-09">
 
-<title>Evaluating the Shai Gilgeous Alexander and Paul George Trade – Cameron King’s Sports Data Stories</title>
+<title>The Worst Trade of the Decade? – Cameron King’s Sports Data Stories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Evaluating the Shai Gilgeous Alexander and Paul George Trade</h1>
+      <h1 class="title">The Worst Trade of the Decade?</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">SGA</div>
                 <div class="quarto-category">Thunder</div>
@@ -190,7 +190,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>x x x</p>
+<p>In the NBA’s 78-year history, there have been some pretty awful trades. You have teams like the Hornets, Hawks and Super Sonics giving away players like Kobe Bryant, Bill Russell and Scottie Pippen on draft night. Then you have teams like the Bucks and 76ers, who practically gave the Lakers Kareem Abdul-Jabbar and Wilt Chamberlain.</p>
+<p>Most of the league’s truly horrific robberies and swindles can be traced back to the early days of the NBA, where the rules were drastically different and the precedent for idiocy had yet to be firmly cemented. While many bad trades happened in the past, recent NBA history is not exempt from its fair share of absolute blunders.</p>
+<p>The Thunder traded James Harden over a few million dollars they would’ve had if they just waited. The Lakers shipped out the few remaining role players from their 2020 Championship team for an old Russell Westbrook.</p>
+<p>Then you have the Nets, with perhaps the biggest blunder of them all sending their entire future (four first-round picks) to the Celtics for the partial remanence of the “Big Three” of Kevin Garnett (age 37), Paul Pierce (36) and Jason Terry (36). I mean, they didn’t even get Ray Allen in the deal. To make matters worse, the picks turned into Jayson Tatum, Jaylen Brown and helped the Celtics get Kyrie.</p>
+<p>The aftermath of that deal taught teams that mortgaging the future for stars is a risky game that can set franchises back years if not decades. The following years would still have some lopsided trades, however, nowhere near the extent of the Nets debacle.</p>
+<p>That was until the summer of 2019 when the Oklahoma City Thunder got bounced from the playoffs early once again and the Clippers had a reason to make a deal. Today I will be looking at one of the worst trades of the last decade in the NBA if not all of NBA History in the 2019 Clippers and Thunder deal.</p>
+<p>The early playoff exit prompted Russel Westbrook to ask out and subsequently his co-star Paul George who had finished third in MVP voting that season. The Clippers came calling fist for George as they had a subsequent deal to land then reigning NBA Finals MVP Kawhi Leonard that hinged on their ability to get George in the fray.</p>
+<p>The Clippers had a relatively new and fairly aggressive owner Steve Ballmer who came with deep pockets from his days at Microsoft and he came with an offer that general manager Sam Presti couldn’t refuse.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -198,10 +205,1316 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalt)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtext)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggbeeswarm)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>#ggsave(“image.png”)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tradedetails <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"tradedetails.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tradedetails <span class="sc">|&gt;</span> <span class="fu">gt</span>()<span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cols_label</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Thunder Receive</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Thunder Receive"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Clippers Receive</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Clippers Receive"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_header</span> (</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">title=</span> <span class="st">"Trade Details"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle=</span> <span class="st">"Details of the 2019 Summer Blockbuster trade between the Thunder and the Clippers."</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"title"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"subtitle"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">md</span>(<span class="st">"By: Cameron King  |  Source: NBA.com "</span>) ) <span class="sc">|&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns =</span> <span class="fu">everything</span>()),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"bottom"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">3</span>)),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">12</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="taybuezafa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#taybuezafa table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#taybuezafa thead, #taybuezafa tbody, #taybuezafa tfoot, #taybuezafa tr, #taybuezafa td, #taybuezafa th {
+  border-style: none;
+}
+
+#taybuezafa p {
+  margin: 0;
+  padding: 0;
+}
+
+#taybuezafa .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#taybuezafa .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#taybuezafa .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#taybuezafa .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#taybuezafa .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#taybuezafa .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#taybuezafa .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#taybuezafa .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#taybuezafa .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#taybuezafa .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#taybuezafa .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#taybuezafa .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#taybuezafa .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#taybuezafa .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#taybuezafa .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#taybuezafa .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#taybuezafa .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#taybuezafa .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#taybuezafa .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#taybuezafa .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#taybuezafa .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#taybuezafa .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#taybuezafa .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#taybuezafa .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#taybuezafa .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#taybuezafa .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#taybuezafa .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#taybuezafa .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#taybuezafa .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#taybuezafa .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#taybuezafa .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#taybuezafa .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#taybuezafa .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#taybuezafa .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#taybuezafa .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#taybuezafa .gt_left {
+  text-align: left;
+}
+
+#taybuezafa .gt_center {
+  text-align: center;
+}
+
+#taybuezafa .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#taybuezafa .gt_font_normal {
+  font-weight: normal;
+}
+
+#taybuezafa .gt_font_bold {
+  font-weight: bold;
+}
+
+#taybuezafa .gt_font_italic {
+  font-style: italic;
+}
+
+#taybuezafa .gt_super {
+  font-size: 65%;
+}
+
+#taybuezafa .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#taybuezafa .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#taybuezafa .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#taybuezafa .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#taybuezafa .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#taybuezafa .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#taybuezafa .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#taybuezafa .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#taybuezafa div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="2" class="gt_heading gt_title gt_font_normal" style="text-align: left; color: #000000; font-weight: bold;">Trade Details</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="text-align: left; color: #000000;">Details of the 2019 Summer Blockbuster trade between the Thunder and the Clippers.</th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Thunder Receive" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold" scope="col">Thunder Receive</th>
+<th id="Clippers Receive" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold" scope="col">Clippers Receive</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Thunder Receive">Shai Gilgeous-Alexander</td>
+<td class="gt_row gt_left" headers="Clippers Receive">Paul George</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Thunder Receive">Danilo Gallinari</td>
+<td class="gt_row gt_left gt_striped" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Thunder Receive">Miami Heat’s 2021 unprotected first (Tre Mann taken at No. 18)</td>
+<td class="gt_row gt_left" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Thunder Receive">Clippers’ 2022 unprotected first (Jalen Williams taken at No. 12)</td>
+<td class="gt_row gt_left gt_striped" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Thunder Receive">Clippers' 2023 first-round swap (not conveyed)</td>
+<td class="gt_row gt_left" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Thunder Receive">Clippers’ 2024 unprotected first (Dillon Jones taken at No. 26)</td>
+<td class="gt_row gt_left gt_striped" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Thunder Receive">Heat’s 2025 protected first 1-14 (unprotected for 2026)</td>
+<td class="gt_row gt_left" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Thunder Receive">Clippers' 2025 first-round swap</td>
+<td class="gt_row gt_left gt_striped" headers="Clippers Receive">NA</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Thunder Receive">Clippers’ 2026 unprotected first-rounder</td>
+<td class="gt_row gt_left" headers="Clippers Receive">NA</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="2" class="gt_sourcenote"><p>By: Cameron King | Source: NBA.com</p></td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Presti had been at the helm for the disaster that was the James Harden deal that eventually led to the dissolution of the first iteration of the Thunder “Big Three” of Kevin Durant, Russell Westbrook and James Harden. While that was definitely a low point in his career he had bounced back and grown to become one of the best general managers in all of sports.</p>
+<p>This trade cemented his status as one of the toughest negotiators in sports as he turned a distressed and depreciating asset into a war chest of future picks and flexibility.</p>
+<p>At the time the trade was perceived to be a win-win for both teams however as the Clippers gained a newfound relevance that had evaded them for the vast majority of the team’s history. The Thunder on the other hand got a future with the picks and a promising young player in Shai Gilgeous-Alexander a six-foot-six lengthy guard out of Kentucky who has a history of producing great NBA guards.</p>
+<p>However, it wouldn’t take long for perception to change as time went on Gilgeous-Alexander proved to be better than expected while Paul George regressed ever so slightly with age. To make matters worse the Thunder started to hit on some of the picks that they got out of the deal which came in earlier in the draft than expected thanks to a few injury-riddled Clippers seasons.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trade <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"trade.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tradeparts <span class="ot">&lt;-</span> trade <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(Year, Player, Team, PTS, TRB, AST, STL, BLK, YearTeam)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>bar1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data=</span>tradeparts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Year, PTS), <span class="at">weight=</span>PTS, <span class="at">fill=</span>Team)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"The Thunder won the trade"</span>, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"The Thunder have gotten more production from the trade across the board."</span>,  </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Points Per Game"</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>), </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>bar2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">data=</span>tradeparts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Year, TRB), <span class="at">weight=</span>TRB, <span class="at">fill=</span>Team)) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">""</span>, </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span> <span class="st">""</span>, </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Rebounds Per Game"</span>,  </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>), </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>bar3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">data=</span>tradeparts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Year, STL), <span class="at">weight=</span>STL, <span class="at">fill=</span>Team)) <span class="sc">+</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">""</span>, </span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span> <span class="st">""</span>, </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Steals Per Game"</span>,  </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>), </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>bar4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_bar</span>(<span class="at">data=</span>tradeparts, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(Year, AST), <span class="at">weight=</span>AST, <span class="at">fill=</span>Team)) <span class="sc">+</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">""</span>, </span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span> <span class="st">""</span>, </span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Assits Per Game"</span>,  </span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption=</span><span class="st">"By: Cameron King  |  Source: basketball-reference.com "</span>) <span class="sc">+</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>), </span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>), </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>bar1 <span class="sc">+</span> bar2 <span class="sc">+</span> bar3 <span class="sc">+</span> bar4 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Fast forward to the present day, and if it was boxing, it would be a unanimous decision or a brutal knockout in favor of the Thunder. While it started close the Thunder took Jalen Williams 12th in the 2022 NBA draft and Shai elevated into a whole different MVP esc stratosphere.</p>
+<p>The Clippers had traded away a 30-plus point-per-game scorer and (unknowingly granted) a rising star in Jalen Williams who would start on any NBA team today.</p>
+<p>However, if you had gone back in time and told the Clippers this when the trade happened, they might have hesitated, but they most likely still go through with it to get Kawhi and Paul George to LA in Clipper uniforms. Kawhi was threatening to take his talents upstairs who had their super team of LeBron James and Anthony Davis. This would have spelled indefinite irrelevancy for the Clippers and likely put an end to any new arena talks that were in the works.</p>
+<p>Unfortunately, Paul George and Kawhi Leonard would endure several serious injuries, and brutal playoff collapses over the next few years with only a trip to the second round to show for it all. To make matters worse Paul and the Clippers would part ways before the start of the 2025 season officially ending the debate for the very few die-hard Clippers holdouts.</p>
+<p>In the Clipper’s defense, however, there is no way they could’ve known what the picks would turn into, and if other teams were a little bit smarter there is no way Jalen Williams falls to 12, and Tre Mann is already with his second team. So, if you take all the picks out of it and don’t count Danilo Gallinari, who had a short stint in OKC after the trade, how does just Shai and George stack up since the trade?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>SGAvPG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"sgavspg.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>SGAvPG <span class="sc">|&gt;</span> <span class="fu">gt</span>()<span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cols_label</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Shai Gilgeous-Alexander</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Shai Gilgeous-Alexander"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Paul George</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Paul George"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_header</span> (</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">title=</span> <span class="st">"Shai Gilegeous-Alexander Has Been The Better Player"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle=</span> <span class="st">"SGA has provided far more value to the team he was traded to than Paul George has and the gap is only getting bigger."</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"title"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> <span class="fu">tab_style</span>(</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">align =</span> <span class="st">"left"</span>),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_title</span>(<span class="st">"subtitle"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_source_note</span>(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">source_note =</span> <span class="fu">md</span>(<span class="st">"By: Cameron King  |  Source: basketball-reference.com "</span>) ) <span class="sc">|&gt;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">locations =</span> <span class="fu">cells_column_labels</span>(<span class="at">columns =</span> <span class="fu">everything</span>()),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_borders</span>(<span class="at">sides =</span> <span class="st">"bottom"</span>, <span class="at">weight =</span> <span class="fu">px</span>(<span class="dv">3</span>)),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>       <span class="fu">cell_text</span>(<span class="at">weight =</span> <span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">12</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     )</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>   ) <span class="sc">|&gt;</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_row_striping</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">opt_table_lines</span>(<span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fmt_percent</span>(</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">11</span>),</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">2</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"orange"</span>),</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> Stats <span class="sc">==</span> <span class="st">"Total Win Shares"</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">list</span>(</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>),</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> Stats <span class="sc">==</span> <span class="st">"Total Games Played"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="zjlldukfsy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zjlldukfsy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zjlldukfsy thead, #zjlldukfsy tbody, #zjlldukfsy tfoot, #zjlldukfsy tr, #zjlldukfsy td, #zjlldukfsy th {
+  border-style: none;
+}
+
+#zjlldukfsy p {
+  margin: 0;
+  padding: 0;
+}
+
+#zjlldukfsy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zjlldukfsy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zjlldukfsy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zjlldukfsy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zjlldukfsy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zjlldukfsy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zjlldukfsy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zjlldukfsy .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zjlldukfsy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zjlldukfsy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zjlldukfsy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zjlldukfsy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zjlldukfsy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zjlldukfsy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zjlldukfsy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zjlldukfsy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zjlldukfsy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zjlldukfsy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zjlldukfsy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zjlldukfsy .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zjlldukfsy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zjlldukfsy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zjlldukfsy .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zjlldukfsy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zjlldukfsy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zjlldukfsy .gt_left {
+  text-align: left;
+}
+
+#zjlldukfsy .gt_center {
+  text-align: center;
+}
+
+#zjlldukfsy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zjlldukfsy .gt_font_normal {
+  font-weight: normal;
+}
+
+#zjlldukfsy .gt_font_bold {
+  font-weight: bold;
+}
+
+#zjlldukfsy .gt_font_italic {
+  font-style: italic;
+}
+
+#zjlldukfsy .gt_super {
+  font-size: 65%;
+}
+
+#zjlldukfsy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zjlldukfsy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zjlldukfsy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zjlldukfsy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zjlldukfsy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zjlldukfsy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zjlldukfsy .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#zjlldukfsy .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zjlldukfsy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="3" class="gt_heading gt_title gt_font_normal" style="text-align: left; color: #000000; font-weight: bold;">Shai Gilegeous-Alexander Has Been The Better Player</th>
+</tr>
+<tr class="gt_heading even">
+<th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="text-align: left; color: #000000;">SGA has provided far more value to the team he was traded to than Paul George has and the gap is only getting bigger.</th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="Stats" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold" scope="col">Stats</th>
+<th id="Shai Gilgeous-Alexander" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold" scope="col">Shai Gilgeous-Alexander</th>
+<th id="Paul George" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold" scope="col">Paul George</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Points Per Game</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">26.5</td>
+<td class="gt_row gt_right" headers="Paul George">23.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats">Assists Per Game</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander">4.6</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George">4.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Rebounds Per Game</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">5.2</td>
+<td class="gt_row gt_right" headers="Paul George">6.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats">Steals Per Game</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander">1.4</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George">1.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Blocks Per Game</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">1.0</td>
+<td class="gt_row gt_right" headers="Paul George">0.4</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats" style="background-color: #ADD8E6; color: #FFFFFF">Total Games Played</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander" style="background-color: #ADD8E6; color: #FFFFFF">304.0</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George" style="background-color: #ADD8E6; color: #FFFFFF">263.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Field Goal%</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">49.90%</td>
+<td class="gt_row gt_right" headers="Paul George">45.50%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats">Three Point%</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander">34.40%</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George">39.70%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Player Efficiency Rating</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">24.0</td>
+<td class="gt_row gt_right" headers="Paul George">19.8</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats">True Shooting%</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander">60.60%</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George">59.00%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Usage%</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">30.00%</td>
+<td class="gt_row gt_right" headers="Paul George">29.30%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats" style="background-color: #FFA500; color: #000000">Total Win Shares</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander" style="background-color: #FFA500; color: #000000">44.7</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George" style="background-color: #FFA500; color: #000000">23.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Stats">Total Value Over Replacement</td>
+<td class="gt_row gt_right" headers="Shai Gilgeous-Alexander">21.7</td>
+<td class="gt_row gt_right" headers="Paul George">12.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left gt_striped" headers="Stats">Plus/Minus</td>
+<td class="gt_row gt_right gt_striped" headers="Shai Gilgeous-Alexander">5.6</td>
+<td class="gt_row gt_right gt_striped" headers="Paul George">3.6</td>
+</tr>
+</tbody><tfoot class="gt_sourcenotes">
+<tr class="odd">
+<td colspan="3" class="gt_sourcenote"><p>By: Cameron King | Source: basketball-reference.com</p></td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"image.png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Ouch. Gilgeous-Alexander has been better in almost every statistical category that you would want to look at. He’s averaged more points, assists and blocks despite being shorter while having a better field goal percentage. The advanced numbers are even more of a blowout as Shai has been more efficient while contributing over 20 more win shares (basically wins because of him). He also is way more valuable than his backup then Paul George has been during their period with their respective teams.</p>
+<p>In a vacuum the trade is hard to defend for the Clippers however, teams make several moves every season to win as many games as possible (for most teams anyway). How have the two franchises faired since the deal?</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>teamwins <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"teamwins.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Thunder <span class="ot">&lt;-</span> teamwins <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"OKC Thunder"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>Clips <span class="ot">&lt;-</span> teamwins <span class="sc">|&gt;</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Team <span class="sc">==</span> <span class="st">"LA Clippers"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> Thunder, </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wins), </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"orange"</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>Thunder, </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span><span class="fl">2019.5</span>, <span class="at">y=</span><span class="fl">46.5</span>, <span class="at">label=</span><span class="st">"Trade"</span>), </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"blue"</span>) <span class="sc">+</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> Clips, </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Wins), </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">data=</span>Clips, </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span><span class="fl">2019.5</span>, <span class="at">y=</span><span class="fl">48.5</span>, <span class="at">label=</span><span class="st">"Trade"</span>), </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">color=</span><span class="st">"blue"</span>) <span class="sc">+</span> </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">60</span> )) <span class="sc">+</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"Year"</span>, </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">y=</span><span class="st">"Wins"</span>, </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="st">"The Clippers have won more games."</span>, </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle=</span><span class="st">"While the &lt;span style = 'color:red;'&gt;Clippers&lt;/span&gt; may have lost the &lt;span style = 'color:blue;'&gt;trade&lt;/span&gt; they have consistently won more games than the &lt;span style = 'color:orange;'&gt;Thunder&lt;/span&gt; in the seasons since."</span>, </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption=</span><span class="st">"By: Cameron King  |  Source: basketball-reference.com "</span>) <span class="sc">+</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>), </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_textbox_simple</span>(<span class="at">size=</span><span class="dv">9</span>), </span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title.position =</span> <span class="st">"plot"</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>One could argue the Clippers fell into the sweet spot for NBA teams. Good enough to keep fans interested and the team is profitable but not so good that it becomes ridiculously expensive. However, the Clippers were paying millions upon millions of dollars in luxury tax while hovering around good to not quite great team status.</p>
+<p>On top of all that the new arena that was part of the urgency for the trade is built and it’s known as the $2 billion Intuit Dome. With Paul George now residing in Philadelphia and Kawhi Leonard hurt the Clippers have nothing to show for the dreaded 2019 transaction at the moment.</p>
+<p>The Thunder on the other hand were shockingly good in the first-year post-trade as a motivated Chris Paul who they acquired by trading Russel Westbrook refused to let his playoffs-made streak die in Oklahoma. Ultimately the Thunder would flip him to for more pieces the next year and proceed to the deep dark depths of the NBA where they quite frankly wanted to be.</p>
+<p>However, they wouldn’t stay there long as Gilgeous-Alexander continued to rise they drafted Jalen Williams and a seven-foot skinny kid that can shoot in Chet Holmgren giving them a new “Big Three”. The Thunder are now one of the best teams in the league and the betting favorite to represent the Western Conference in the NBA Finals.</p>
+<p>Looking forward the Clippers are not done paying for their sins of 2019 as they still owe the Thunder a 2025 protected pick from the Heat, their 2026 unprotected first and the Thunder have the right to swap first-round picks in 2025.</p>
+<p>This is especially dreadful becasue according to scouts both the 2025 and 2026 classes are two of the best and deepest classes in recent history. With prospects like AJ Dybansta, Cooper Flagg, Cam Boozer and Darryn Peterson inbound this trade has the potential to go from worst in a decade to worst ever.</p>
+<p>While it may not be the worst trade ever yet thanks to some utterly mind-boggling thefts of the past it stands alone as the worst trade since the Nets trade in 2013. Unlike in 2013 and the years after teams today seem almost eager to enter their hats in the race with new bad trades popping up more and more frequently thanks to the restrictions in the new CBA. While misery loves company the Clippers fans will still likely look back at 2019 and get sick to their stomachs, especially every time they play the Thunder look to be perineal contenders thanks to the Clipper’s donation.</p>
 
 
 
